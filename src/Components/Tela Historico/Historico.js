@@ -2,14 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Cabecalho from "../Cabecalho"
 import Rodape from '../Rodape'
-import CriarHabito from './CriarHabito'
-import {useState} from 'react'
-import RenderizarHabitos from './RenderizarHabitos'
 
-
-export default function Habitos(){
-
-    const [criarHabito, setCriarHabito] = useState(false)
+export default function Historico(){
     
     return (
         <>
@@ -17,11 +11,9 @@ export default function Habitos(){
                 <ConteudoNavegador>
                     <ConteudoTela>
                         <TituloConteudo>
-                            Meus hábitos
-                            <button onClick={()=>setCriarHabito(true)}>+</button>
+                            <h1>Histórico</h1>
+                            <h2>Em breve você poderá ver o histórico dos seus hábitos aqui!</h2>
                         </TituloConteudo>
-                        <CriarHabito criarHabito={criarHabito} setCriarHabito={setCriarHabito}/>
-                        <RenderizarHabitos />
                     </ConteudoTela>
                 </ConteudoNavegador>
             <Rodape/>
@@ -50,11 +42,6 @@ const ConteudoTela = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    h1{
-        color: #666666;
-        font-size: 18px;
-        margin-top: 30px;
-    }
     `;
 
 const TituloConteudo = styled.div`
@@ -63,20 +50,20 @@ const TituloConteudo = styled.div`
     color: #126BA5;
     font-size: 23px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
+    margin-bottom: 18px;
 
-    button{
-        height: 35px;
-        width: 40px;
-        background-color: #52B6FF;
-        color: #FFFFFF;
-        border: none;
-        border-radius: 5px;
-        font-size: 27px;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    h1{
+        color: #126BA5;
+        font-size: 23px;
+        margin-top: 28px;
+    }
+
+    h2{
+        color: #666666;
+        font-size: 18px;
+        margin-top: 15px;
     }
     `;

@@ -3,6 +3,7 @@ import Login from "./Tela Login/Login"
 import Cadastro from "./Tela Cadastro/Cadastro"
 import Habitos from "./Tela Habitos/Habitos"
 import Hoje from "./Tela Hoje/Hoje"
+import Historico from "./Tela Historico/Historico"
 
 export default function App(){
     /* escrever o codigo aqui */
@@ -14,7 +15,7 @@ export default function App(){
                 <Route path="/cadastro" element={<Cadastro />} />
                 <Route path="/habitos" element={<Habitos />} />
                 <Route path="/hoje" element={<Hoje />} />
-                {/* <Route path="/historico" element={<Historico />} /> */}
+                <Route path="/historico" element={<Historico />} />
             </Routes>
         </BrowserRouter>
         </>

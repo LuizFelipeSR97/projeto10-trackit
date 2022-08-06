@@ -1,7 +1,26 @@
 import {useState} from 'react'
 import styled from 'styled-components'
+import RenderizarHabitos from './RenderizarHabitos'
 
 export default function CriarHabito({criarHabito, setCriarHabito}){
+
+    function RenderizarDias(){
+
+        const [diasDaSemana,setDiasDaSemana]=useState([{dia: "D", selecionado: false},{dia: "S", selecionado: false},{dia: "T", selecionado: false},{dia: "Q", selecionado: false},{dia: "Q", selecionado: false},{dia: "S", selecionado: false},{dia: "S", selecionado: false}])
+
+        return (diasDaSemana.map(dia=> <RenderizarDia diaNome={dia.dia}/>))
+    }
+
+    function RenderizarDia({diaNome, diasDaSemana, setDiasDaSemana}){
+
+        const [diaSelecionado,setDiaSelecionado]=useState(false)
+
+        if (diaSelecionado){
+            return <DiaSelecionado onClick={()=> setDiaSelecionado(!diaSelecionado)}>{diaNome}</DiaSelecionado>
+        } else  {
+            return <Dia onClick={()=> setDiaSelecionado(!diaSelecionado)}>{diaNome}</Dia>
+        }
+    }
     
     if (criarHabito===true){
         return (
@@ -9,16 +28,10 @@ export default function CriarHabito({criarHabito, setCriarHabito}){
                 <CardCriarHabito>
                         <input placeholder="nome do hábito"/>
                     <LinhaDias>
-                        <Dia>D</Dia>
-                        <Dia>S</Dia>
-                        <Dia>T</Dia>
-                        <Dia>Q</Dia>
-                        <Dia>Q</Dia>
-                        <Dia>S</Dia>
-                        <Dia>S</Dia>
+                        <RenderizarDias/>
                     </LinhaDias>
                     <LinhaAcao>
-                        <p>Cancelar</p>
+                        <p onClick={()=>setCriarHabito(!criarHabito)}>Cancelar</p>
                         <button>Salvar</button>
                     </LinhaAcao>
                 </CardCriarHabito>
@@ -35,7 +48,7 @@ export default function CriarHabito({criarHabito, setCriarHabito}){
 
 const CardCriarHabito = styled.div`
     background: #FFFFFF;
-    width: 340px;
+    width: 100%;
     height: 180px;
     border-radius: 5px;
 
@@ -74,8 +87,23 @@ const Dia = styled.div`
     height: 30px;
     width: 30px;
     margin-right: 4px;
+    font-size: 20px;
     cursor: pointer;
+`;
 
+const DiaSelecionado = styled.div`
+    background-color: #D4D4D4;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    margin-right: 4px;
+    font-size: 20px;
+    cursor: pointer;
 `;
 
 const LinhaAcao = styled.div`

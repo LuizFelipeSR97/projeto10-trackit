@@ -1,15 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 
+const usuario={
+    "id": 3,
+    "name": "Joe",
+    "image": "https://cdn.pensador.com/img/authors/bo/be/bob-esponja-l.jpg",
+    "email": "joe@respondeai.com.br",
+    "password": "123456",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjIxMjg0NzExfQ.b8e3bYm7TnU5p6pfrCPPbzboax6gvh_gGNFR4T51FxY"
+}
+
 export default function Cabecalho(){
     return (
         <CabecalhoNavegador>
             <CabecalhoTela>
                 <p>TrackIt</p>
-                <Perfil src="https://cdn.pensador.com/img/authors/bo/be/bob-esponja-l.jpg"/>
+                <Perfil src={usuario.image}/>
             </CabecalhoTela>
-        </CabecalhoNavegador>
-        
+        </CabecalhoNavegador>        
     )
 }
 

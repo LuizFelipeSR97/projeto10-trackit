@@ -12,7 +12,7 @@ export default function Rodape(){
                 <Link to={"/habitos"}><p>Hábitos</p></Link>
                 {/* <CircularProgressbar value={percentage} text={`${percentage}%` } />; */}
                 <Link to={"/hoje"}><p>Hoje</p></Link>
-                <p>Histórico</p>
+                <Link to={"/historico"}><p>Histórico</p></Link>
             </RodapeTela>
         </RodapeNavegador>
         

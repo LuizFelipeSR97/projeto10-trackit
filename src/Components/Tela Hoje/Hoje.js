@@ -3,9 +3,33 @@ import styled from 'styled-components'
 import Cabecalho from "../Cabecalho"
 import Rodape from '../Rodape'
 import {useState} from 'react'
-import lixeira from "../../media/lixeira.svg"
+import RenderizarHabitosHoje from './RenderizarHabitos'
 
 export default function Hoje(){
+
+    const habitosHojeAPI=[
+        {
+            "id": 1,
+            "name": "Acordar",
+            "done": true,
+            "currentSequence": 1,
+            "highestSequence": 2
+        },
+        {
+            "id": 2,
+            "name": "Estudar",
+            "done": true,
+            "currentSequence": 3,
+            "highestSequence": 4
+        },
+        {
+            "id": 3,
+            "name": "Comer",
+            "done": false,
+            "currentSequence": 5,
+            "highestSequence": 6
+        }
+    ]
     
     return (
         <>
@@ -13,22 +37,10 @@ export default function Hoje(){
                 <ConteudoNavegador>
                     <ConteudoTela>
                         <TituloConteudo>
-                            <h1>Segunda, 17/05</h1>
-                            <h2>67% dos hábitos concluídos</h2>
+                            <h1>??-feira, ??/??</h1>
+                            <h2>??% dos hábitos concluídos</h2>
                         </TituloConteudo>
-                        <Habito>
-                            <h2>Ler 1 capítulo de livro</h2>
-                            <LinhaDias>
-                                <Dia>D</Dia>
-                                <DiaSelecionado>S</DiaSelecionado>
-                                <Dia>T</Dia>
-                                <Dia>Q</Dia>
-                                <DiaSelecionado>Q</DiaSelecionado>
-                                <Dia>S</Dia>
-                                <Dia>S</Dia>
-                            </LinhaDias>
-                            <img src={lixeira}/>
-                        </Habito>
+                        <RenderizarHabitosHoje habitosHojeAPI={habitosHojeAPI}/>
                     </ConteudoTela>
                 </ConteudoNavegador>
             <Rodape/>
@@ -81,71 +93,3 @@ const TituloConteudo = styled.div`
         font-size: 18px;
     }
     `;
-
-const Habito = styled.div`
-    background: #FFFFFF;
-    width: 340px;
-    height: 90px;
-    border-radius: 5px;
-    margin-top: 10px;
-    position: relative;
-
-    input{
-        width: 303px;
-        height: 45px;
-        border: 1px solid #D4D4D4;
-        padding-left: 10px;
-        font-size: 20px;
-        margin: 19px 19px 8px 19px;
-        border-radius: 5px;
-    }
-
-    img{
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-    }
-
-    h2{
-        margin: 15px 0 10px 15px;
-        font-size: 20px;
-        color: #666666;
-    }
-`
-
-const LinhaDias = styled.div`
-    display: flex;
-    margin-left: 15px;
-
-`;
-
-const Dia = styled.div`
-    background-color: #FFFFFF;
-    border: 1px solid #D4D4D4;
-    color: #D4D4D4;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    width: 30px;
-    margin-right: 4px;
-    cursor: pointer;
-    font-size: 20px;
-`;
-
-const DiaSelecionado = styled.div`
-    background-color: #D4D4D4;
-    border: 1px solid #FFFFFF;
-    color: #FFFFFF;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 30px;
-    width: 30px;
-    margin-right: 4px;
-    cursor: pointer;
-    font-size: 20px;
-`;
