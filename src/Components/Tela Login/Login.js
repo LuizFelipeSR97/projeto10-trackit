@@ -1,13 +1,30 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from "react-router-dom"
-import logo from "../../media/logo.svg"
+import {useContext, useState, useEffect} from 'react';
+import axios from "axios";
+import styled from 'styled-components';
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../media/logo.svg";
+import UserContext from './UserContext';
 
 export default function Login(){
+
+    const navigate = useNavigate();
+    const {userInfo, setUserInfo} = useContext(UserContext)
     
     function enviarFormulario(e){
         e.preventDefault();
-        alert("oi");
+        const obj = {email: e.target.email.value, password: e.target.senha.value};
+
+        const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',obj);
+        request.then(resp=>tratarSucesso(resp.data));
+        request.catch(()=>alert('Login e/ou senha estão errados. Por favor, digite valores válidos.'));
+        // request.catch(()=>tratarErro(erro));
+        //Colocar cinza nos botoes e a imagem de carregando
+    }
+
+    function tratarSucesso(obj){
+        console.log(obj)
+        setUserInfo([obj])
+        navigate("/hoje")
     }
 
     return (
@@ -78,7 +95,7 @@ const Formulario = styled.form`
 
     button{
         background-color: #52B6FF;
-        width: 303px;
+        width: 100%;
         height: 45px;
         color: #FFFFFF;
         border-radius: 5px;

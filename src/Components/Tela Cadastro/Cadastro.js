@@ -1,13 +1,29 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Link } from "react-router-dom"
-import logo from "../../media/logo.svg"
+import React from 'react';
+import axios from "axios";
+import styled from 'styled-components';
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../media/logo.svg";
+
+
+//Cadastro criado:
+//Email: bob@driven.com
+//Senha: bob@driven
+//Nome: Bob Esponja
+//Foto: https://cdn.pensador.com/img/authors/bo/be/bob-esponja-l.jpg
 
 export default function Cadastro(){
+
+    const navigate = useNavigate();
     
     function enviarFormulario(e){
         e.preventDefault();
-        alert("oi");
+        const obj = {email: e.target.email.value, name: e.target.nome.value, image: e.target.foto.value, password: e.target.senha.value };
+
+        const request = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up',obj);
+        request.then(
+            navigate("/"));
+        // request.catch(()=>tratarErro(erro));
+        //Colocar cinza nos botoes e a imagem de carregando
     }
 
     return (
@@ -19,7 +35,6 @@ export default function Cadastro(){
                     <input placeholder="senha" name="senha" required/>
                     <input placeholder="nome" name="nome" required/>
                     <input placeholder="foto" name="foto" required/>
-                    {/* <input placeholder="foto" type="file" name="foto" required/> */}
                     <button >Entrar</button>
                 </Formulario>
                 <Link to={"/"}><p>Já tem uma conta? Faça login!</p></Link>

@@ -10,12 +10,15 @@ const usuario={
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjIxMjg0NzExfQ.b8e3bYm7TnU5p6pfrCPPbzboax6gvh_gGNFR4T51FxY"
 }
 
-export default function Cabecalho(){
+export default function Cabecalho({userInfo, setUserInfo}){
+
+    console.log(userInfo[0].image)
+
     return (
         <CabecalhoNavegador>
             <CabecalhoTela>
                 <p>TrackIt</p>
-                <Perfil src={usuario.image}/>
+                <Perfil src={userInfo[0].image}/>
             </CabecalhoTela>
         </CabecalhoNavegador>        
     )

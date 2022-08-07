@@ -2,10 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import Cabecalho from "../Cabecalho"
 import Rodape from '../Rodape'
-import {useState} from 'react'
+import {useState,useContext} from 'react'
 import RenderizarHabitosHoje from './RenderizarHabitos'
+import UserContext from '../Tela Login/UserContext'
 
 export default function Hoje(){
+
+    const {userInfo, setUserInfo} = useContext(UserContext)
+
+    console.log(userInfo)
 
     const habitosHojeAPI=[
         {
@@ -33,7 +38,7 @@ export default function Hoje(){
     
     return (
         <>
-            <Cabecalho/>
+            <Cabecalho userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <ConteudoNavegador>
                     <ConteudoTela>
                         <TituloConteudo>

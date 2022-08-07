@@ -17,7 +17,6 @@ export default function Rodape(){
                         styles={buildStyles({
                             rotation: 0,
                             strokeLinecap: 'round',
-                            textSize: '16px',
                             pathTransitionDuration: 0.5,
                             pathColor: `#FFFFFF`,
                             textColor: '#FFFFFF',
