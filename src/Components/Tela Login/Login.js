@@ -33,7 +33,7 @@ export default function Login(){
                 <Logo src={logo} />
                 <Formulario onSubmit={enviarFormulario}>
                     <input placeholder="email" name="email" required/>
-                    <input placeholder="senha" name="senha" required/>
+                    <input placeholder="senha" type="password" name="senha" required/>
                     <button >Entrar</button>
                 </Formulario>
                 <Link to={"/cadastro"}><p>Não tem uma conta? Cadastre-se!</p></Link>

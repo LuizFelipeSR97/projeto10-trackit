@@ -3,25 +3,28 @@ import styled from 'styled-components'
 import Cabecalho from "../Cabecalho"
 import Rodape from '../Rodape'
 import CriarHabito from './CriarHabito'
-import {useState} from 'react'
 import RenderizarHabitos from './RenderizarHabitos'
+import {useState,useContext} from 'react'
+import UserContext from '../Tela Login/UserContext'
 
 
 export default function Habitos(){
 
     const [criarHabito, setCriarHabito] = useState(false)
+    const {userInfo, setUserInfo} = useContext(UserContext)
+    let loadPage=false;
     
     return (
         <>
-            <Cabecalho/>
+            <Cabecalho userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <ConteudoNavegador>
                     <ConteudoTela>
                         <TituloConteudo>
                             Meus hábitos
                             <button onClick={()=>setCriarHabito(true)}>+</button>
                         </TituloConteudo>
-                        <CriarHabito criarHabito={criarHabito} setCriarHabito={setCriarHabito}/>
-                        <RenderizarHabitos />
+                        <CriarHabito userInfo={userInfo} criarHabito={criarHabito} setCriarHabito={setCriarHabito} loadPage={loadPage}/>
+                        <RenderizarHabitos userInfo={userInfo} loadPage={loadPage}/>
                     </ConteudoTela>
                 </ConteudoNavegador>
             <Rodape/>
@@ -35,7 +38,7 @@ const ConteudoNavegador = styled.div`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 10000px;
     padding: 70px 0;
     display: flex;
     justify-content: center;

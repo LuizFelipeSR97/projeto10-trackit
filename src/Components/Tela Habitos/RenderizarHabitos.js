@@ -1,6 +1,7 @@
-import styled from 'styled-components'
-import lixeira from "../../media/lixeira.svg"
-import {useState} from 'react'
+import styled from 'styled-components';
+import axios from "axios";
+import lixeira from "../../media/lixeira.svg";
+import {useState, useEffect} from 'react';
 
 const habitosAPI=[
 	{
@@ -20,7 +21,18 @@ const habitosAPI=[
 	}
 ]
 
-export default function RenderizarHabitos(){
+export default function RenderizarHabitos({userInfo, loadPage}){
+
+    const [habitos, setHabitos] = useState(null);
+
+    useEffect(() => {
+        console.log("api")
+        const request = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers: {"Authorization": `Bearer ${userInfo[0].token}`}});
+        request.then(resp => {
+            setHabitos(resp.data);
+            loadPage=false;
+        });
+    },[loadPage]);
 
     function RenderizarDias({arrayDias}){
 
@@ -42,15 +54,28 @@ export default function RenderizarHabitos(){
         }
     }
 
-    return (habitosAPI.map(habito =>
-        <Habito>
-            <h2>{habito.name}</h2>
-            <LinhaDias>
-                <RenderizarDias arrayDias={habito.days}/>
-            </LinhaDias>
-            <img src={lixeira}/>
-        </Habito>
-    ))
+    function excluirHabito(habito){
+        console.log([`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}`, {headers: {"Authorization": `Bearer ${userInfo[0].token}`}}])
+            const promise=axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habito.id}`, {headers: {"Authorization": `Bearer ${userInfo[0].token}`}})
+            promise.catch(()=>alert("Houve um erro. Tente novamente"))
+            promise.then(()=>loadPage=true)
+
+    }
+
+    if (habitos===null){
+        return <></>;
+    } else if (habitos!==null){
+        return (habitos.map(habito =>
+            <Habito>
+                <h2>{habito.name}</h2>
+                <LinhaDias>
+                    <RenderizarDias arrayDias={habito.days}/>
+                </LinhaDias>
+                <img src={lixeira} onClick={()=>excluirHabito(habito)}/>
+            </Habito>
+        ))
+    }
+    
 }
 
 const Habito = styled.div`

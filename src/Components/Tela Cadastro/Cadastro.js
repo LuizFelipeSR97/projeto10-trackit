@@ -32,7 +32,7 @@ export default function Cadastro(){
                 <Logo src={logo} />
                 <Formulario onSubmit={enviarFormulario}>
                     <input placeholder="email" type="email" name="email" required/>
-                    <input placeholder="senha" name="senha" required/>
+                    <input placeholder="senha" type="password" name="senha" required/>
                     <input placeholder="nome" name="nome" required/>
                     <input placeholder="foto" name="foto" required/>
                     <button >Entrar</button>

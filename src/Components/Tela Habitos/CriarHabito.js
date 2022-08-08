@@ -1,38 +1,60 @@
-import {useState} from 'react'
-import styled from 'styled-components'
-import RenderizarHabitos from './RenderizarHabitos'
+import {useState} from 'react';
+import axios from "axios";
+import styled from 'styled-components';
 
-export default function CriarHabito({criarHabito, setCriarHabito}){
+export default function CriarHabito({criarHabito, setCriarHabito, userInfo, loadPage}){
 
-    function RenderizarDias(){
+    const [diasDaSemana,setDiasDaSemana]=useState([{index: 0, dia: "D", selecionado: false},{index: 1, dia: "S", selecionado: false},{index: 2, dia: "T", selecionado: false},{index: 3, dia: "Q", selecionado: false},{index: 4, dia: "Q", selecionado: false},{index: 5, dia: "S", selecionado: false},{index: 6, dia: "S", selecionado: false}])
 
-        const [diasDaSemana,setDiasDaSemana]=useState([{dia: "D", selecionado: false},{dia: "S", selecionado: false},{dia: "T", selecionado: false},{dia: "Q", selecionado: false},{dia: "Q", selecionado: false},{dia: "S", selecionado: false},{dia: "S", selecionado: false}])
+    function RenderizarDias({diasDaSemana, setDiasDaSemana}){
 
-        return (diasDaSemana.map(dia=> <RenderizarDia diaNome={dia.dia}/>))
+        return (diasDaSemana.map(dia=> <RenderizarDia dia={dia} diasDaSemana={diasDaSemana} setDiasDaSemana={setDiasDaSemana}/>))
     }
 
-    function RenderizarDia({diaNome, diasDaSemana, setDiasDaSemana}){
+    function RenderizarDia({diasDaSemana, dia}){
 
         const [diaSelecionado,setDiaSelecionado]=useState(false)
 
         if (diaSelecionado){
-            return <DiaSelecionado onClick={()=> setDiaSelecionado(!diaSelecionado)}>{diaNome}</DiaSelecionado>
+            dia.selecionado=true;
+            return <DiaSelecionado onClick={()=> setDiaSelecionado(!diaSelecionado)}>{dia.dia}</DiaSelecionado>
         } else  {
-            return <Dia onClick={()=> setDiaSelecionado(!diaSelecionado)}>{diaNome}</Dia>
+            dia.selecionado=false;
+            return <Dia onClick={()=> setDiaSelecionado(!diaSelecionado)}>{dia.dia}</Dia>
+        }
+
+    }
+
+    function enviarHabito(diasDaSemana, nomeHabito, loadPage){
+
+        const diasEscolhidos=[]
+        diasDaSemana.map(dias => (dias.selecionado) ? diasEscolhidos.push(dias.index) : null)
+
+        //fazer o post do criar habito
+        if (!diasDaSemana[0].selecionado && !diasDaSemana[1].selecionado && !diasDaSemana[2].selecionado && !diasDaSemana[3].selecionado && !diasDaSemana[4].selecionado && !diasDaSemana[5].selecionado && !diasDaSemana[6].selecionado){
+            alert("Você não selecionou nenhum dia para o seu hábito.")
+        } else {
+            const body={name: nomeHabito, days: diasEscolhidos}
+            const config = {headers: {"Authorization": `Bearer ${userInfo[0].token}`}}
+            const promise=axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits", body, config)
+            promise.catch(()=>alert("Houve um erro. Tente novamente"))
+            promise.then(()=>{setCriarHabito(false);loadPage=true;document.location.reload=true})
         }
     }
     
     if (criarHabito===true){
+        let nomeHabito=""
+
         return (
             <>
                 <CardCriarHabito>
-                        <input placeholder="nome do hábito"/>
+                        <input placeholder="nome do hábito" required onChange={e=>nomeHabito=e.target.value}/>
                     <LinhaDias>
-                        <RenderizarDias/>
+                        <RenderizarDias diasDaSemana={diasDaSemana} setDiasDaSemana={setDiasDaSemana}/>
                     </LinhaDias>
                     <LinhaAcao>
-                        <p onClick={()=>setCriarHabito(!criarHabito)}>Cancelar</p>
-                        <button>Salvar</button>
+                        <p onClick={()=>setCriarHabito(false)}>Cancelar</p>
+                        <button onClick={()=>enviarHabito(diasDaSemana,nomeHabito)}>Salvar</button>
                     </LinhaAcao>
                 </CardCriarHabito>
             </>
@@ -73,7 +95,6 @@ const CardCriarHabito = styled.div`
 const LinhaDias = styled.div`
     display: flex;
     margin-left: 19px;
-
 `;
 
 const Dia = styled.div`

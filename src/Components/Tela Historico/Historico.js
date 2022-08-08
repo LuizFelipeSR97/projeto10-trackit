@@ -2,12 +2,16 @@ import React from 'react'
 import styled from 'styled-components'
 import Cabecalho from "../Cabecalho"
 import Rodape from '../Rodape'
+import UserContext from '../Tela Login/UserContext'
+import {useState,useContext} from 'react'
 
 export default function Historico(){
+
+    const {userInfo, setUserInfo} = useContext(UserContext)
     
     return (
         <>
-            <Cabecalho/>
+            <Cabecalho userInfo={userInfo} setUserInfo={setUserInfo}/>
                 <ConteudoNavegador>
                     <ConteudoTela>
                         <TituloConteudo>
